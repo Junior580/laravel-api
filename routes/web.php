@@ -1,10 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
-    return view('users.create');
+    if (Auth::check()) {
+        return redirect()->route("users.index");
+    }
+
+    return redirect()->route('login');
 });
 
-Route::resource('users', UserController::class);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'show'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
