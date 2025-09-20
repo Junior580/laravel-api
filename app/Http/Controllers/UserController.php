@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -31,15 +32,9 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-        ]);
-
-        User::create($data);
+        User::create($request->validated());
 
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -69,17 +64,9 @@ class UserController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $request->validate([
-            'name'  => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-        ]);
-
-        $user->update([
-            'name'  => $request->name,
-            'email' => $request->email,
-        ]);
+        $user->update($request->validated());
 
         return redirect()->route('users.index')->with('success', 'User updated');
     }
