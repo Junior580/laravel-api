@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -20,6 +21,7 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::resource('users', UserController::class);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('users', UserController::class);
+    Route::resource('products', ProductController::class);
 });

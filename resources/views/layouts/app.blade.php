@@ -23,7 +23,7 @@
                             <a class="nav-link" href="/users">Usuários</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Produtos</a>
+                            <a class="nav-link" href="/products">Produtos</a>
                         </li>
                     </ul>
                 </div>
