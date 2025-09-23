@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -32,7 +31,7 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\StoreCategoryRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(CategoryRequest $request)
     {
         Category::create($request->validated());
         return redirect()->route('categories.index')->with('success', 'Category created successfully');
@@ -63,7 +62,7 @@ class CategoryController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
         return redirect()->route('categories.index')->with('success', 'Category updated');
