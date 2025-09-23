@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -34,7 +33,7 @@ class ProductController extends Controller
      * @param \Illuminate\Http\StoreProductRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreProductRequest $request)
+    public function store(ProductRequest $request)
     {
         Product::create($request->validated());
 
@@ -67,7 +66,7 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $product->update($request->validated());
 
