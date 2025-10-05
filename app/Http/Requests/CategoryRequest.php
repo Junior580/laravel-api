@@ -30,7 +30,7 @@ class CategoryRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('categories', 'name')->ignore($categoryId),
-            ],,
+            ],
         ];
     }
 }
