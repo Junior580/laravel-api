@@ -35,7 +35,7 @@ class UserRequest extends FormRequest
                 $this->isMethod('post') ? 'required' : 'nullable',
                 'string',
                 'min:8',
-            ],,
+            ],
         ];
     }
 }
