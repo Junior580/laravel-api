@@ -75,5 +75,5 @@ it('deleta um usuário', function () {
     $response = $this->delete(route('users.destroy', $user));
 
     $response->assertRedirect(route('users.index'));
-    $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    $this->assertSoftDeleted('users', ['id' => $user->id]);
 });

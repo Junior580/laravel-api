@@ -69,5 +69,5 @@ it('deleta um produto', function () {
     $response = $this->delete(route('products.destroy', $product));
 
     $response->assertRedirect(route('products.index'));
-    $this->assertDatabaseMissing('products', ['id' => $product->id]);
+    $this->assertSoftDeleted('products', ['id' => $product->id]);
 });

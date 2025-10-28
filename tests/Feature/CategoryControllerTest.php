@@ -74,5 +74,5 @@ it('deleta uma categoria', function () {
     $response = $this->delete(route('categories.destroy', $category));
 
     $response->assertRedirect(route('categories.index'));
-    $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+    $this->assertSoftDeleted('categories', ['id' => $category->id]);
 });
