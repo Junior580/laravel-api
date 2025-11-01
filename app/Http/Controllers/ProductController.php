@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
-    *@return \Illuminate\Contracts\View\View
+     *@return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new resource.
-    *@return \Illuminate\Contracts\View\View
+     *@return \Illuminate\Contracts\View\View
      */
     public function create()
     {
