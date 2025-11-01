@@ -39,10 +39,32 @@ it('cria um novo serviço com dados válidos', function () {
 });
 
 it('exibe a página de edição do service', function () {
-    $product = Service::factory()->create();
+    $service = Service::factory()->create();
 
-    $response = $this->get(route('services.edit', $product));
+    $response = $this->get(route('services.edit', $service));
 
     $response->assertStatus(200);
     $response->assertViewIs('services.edit');
+});
+
+it('atualiza um serviço existente', function () {
+    $service = Service::factory()->create();
+
+    $response = $this->put(route('services.update', $service), [
+        'name' => 'service1',
+        'description' => 'description1',
+        'price' => 2500.00,
+    ]);
+
+    $response->assertRedirect(route('services.index'));
+    $this->assertDatabaseHas('services', ['name' => 'service1']);
+});
+
+it('deleta um serviço', function () {
+    $service = Service::factory()->create();
+
+    $response = $this->delete(route('services.destroy', $service));
+
+    $response->assertRedirect(route('services.index'));
+    $this->assertSoftDeleted('services', ['id' => $service->id]);
 });

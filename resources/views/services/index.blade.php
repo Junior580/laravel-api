@@ -15,6 +15,7 @@
             <tr>
                 <th>#</th>
                 <th>Nome</th>
+                <th>Descrição</th>
                 <th>Preço</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
             @forelse($services as $service)
                 <tr>
                     <td>{{ $service->id }}</td>
+                    <td>{{ $service->name }}</td>
                     <td>{{ $service->name }}</td>
                     <td>R$ {{ number_format($service->price, 2, ',', '.') }}</td>
                     <td>

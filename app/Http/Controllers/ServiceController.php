@@ -30,4 +30,25 @@ class ServiceController extends Controller
     {
         return view('services.show', compact('service'));
     }
+
+    public function edit(Service $service)
+    {
+        $services = Service::all();
+        return view('services.edit', compact('service', 'services'));
+    }
+
+    public function update(ServiceRequest $request, Service $service)
+    {
+        $service->update($request->validated());
+
+        return redirect()->route('services.index')
+            ->with('success', 'Service updated');
+    }
+
+    public function destroy(Service $service)
+    {
+        $service->delete();
+        return redirect()->route('services.index')
+            ->with('success', 'Service deleted');
+    }
 }
