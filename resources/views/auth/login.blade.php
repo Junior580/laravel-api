@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="d-flex align-items-center justify-content-center vh-100 bg-light">
 
     <div class="card shadow p-4" style="width: 24rem;">
@@ -25,8 +27,8 @@
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}"
-                       class="form-control" required autofocus>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control"
+                    required autofocus>
             </div>
 
             <div class="mb-3">
@@ -40,5 +42,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
 
+</html>
