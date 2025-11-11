@@ -26,18 +26,14 @@ class ProductRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
-
             'description' => ['nullable', 'string', 'max:255'],
-
             'price' => ['required', 'numeric', 'min:0', 'max:99999999.99'],
-
             'sku' => [
                 'nullable',
                 'string',
                 'max:255',
                 Rule::unique('products', 'sku')->ignore($productId),
             ],
-
             'stock' => ['nullable', 'integer', 'min:0', 'max:4294967295'],
             'category_id' => ['required', 'exists:categories,id'],
         ];
