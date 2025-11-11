@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //FIXME: depois que todos tiverem com tenant vinculado remover ->nullable(), deve ser obrigatório
         foreach (self::tables as $table) {
             Schema::table($table, function (Blueprint $table) {
                 $table->foreignId('tenant_id')
