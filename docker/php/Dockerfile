@@ -1,6 +1,5 @@
 FROM php:8.3-fpm
 
-# Instala extensões necessárias
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
