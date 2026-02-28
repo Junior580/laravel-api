@@ -1,21 +1,37 @@
-FROM php:8.3-fpm
+FROM composer:2.7 AS vendor
 
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    libzip-dev \
-    && docker-php-ext-install pdo pdo_mysql zip
+WORKDIR /app
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY composer.json composer.lock ./
 
-WORKDIR /var/www
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --prefer-dist
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer dump-autoload --optimize
+
+FROM php:8.3-fpm
+
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www
+
+COPY --from=vendor /app /var/www
 
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
 USER www-data
 
+EXPOSE 9000
+
+CMD ["php-fpm"]
