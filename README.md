@@ -1,41 +1,115 @@
-##Laravel API - Produção com Docker
--Este projeto utiliza:
--Laravel
--PHP 8.3 (FPM)
--Nginx
--MySQL 8
--Docker & Docker Compose
+# Laravel API - Produção com Docker
 
-#Antes de começar, certifique-se de ter instalado no servidor:
-Docker
-Docker Compose (plugin docker compose)
+Este projeto executa uma aplicação Laravel em ambiente de produção utilizando containers Docker.
 
-#Estrutura do Projeto:
+## Stack utilizada
+
+- Laravel  
+- PHP 8.3 (FPM)  
+- Nginx  
+- MySQL 8  
+- Docker  
+- Docker Compose  
+
+---
+
+## Pré-requisitos
+
+Antes de iniciar, certifique-se de que o servidor possui:
+
+- Docker instalado  
+- Docker Compose (plugin `docker compose`)  
+
+Verifique com:
+
+```bash
+docker --version
+docker compose version
+```
+
+---
+
+## Estrutura do Projeto
+
+```
 project/
 │
 ├── docker/
-│ ├── nginx/
-│ │ └── default.conf << nginx configurações
-│ └── php/
-│ └── Dockerfile
+│   ├── nginx/
+│   │   └── default.conf        # Configuração do Nginx
+│   └── php/
+│       └── Dockerfile          # Imagem PHP personalizada
 │
-├── .env ← CRIAR NO SERVIDOR (não versionar)
-├── .env.example ← versionado
+├── .env                        # Criar no servidor (não versionar)
+├── .env.example                # Arquivo de exemplo (versionado)
 ├── docker-compose.yml
-└── código Laravel
+└── Código Laravel
+```
 
-#Edite o .env com suas configurações reais:
+---
+
+## Configuração do Ambiente
+
+No servidor, crie o arquivo `.env` com base no `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Edite o `.env` com suas configurações reais:
+
+```env
 APP_ENV=production
 APP_DEBUG=false
 
 DB_CONNECTION=mysql
-DB_HOST=mysql # nome do serviço no docker-compose
+DB_HOST=mysql          # Nome do serviço no docker-compose
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=usuario
 DB_PASSWORD=senha-forte
 DB_ROOT_PASSWORD=senha-root-forte
+```
 
-#Subir o Ambiente:
+Importante:  
+O valor de `DB_HOST` deve ser exatamente o nome do serviço MySQL definido no `docker-compose.yml`.
+
+---
+
+## Subindo o Ambiente
+
+Para iniciar os containers:
+
+```bash
 docker compose down -v
 docker compose up -d --build
+```
+
+---
+
+## Executando Migrações
+
+Após os containers estarem rodando:
+
+```bash
+docker exec -it laravel-php php artisan migrate --force
+```
+
+---
+
+## Limpar Cache (caso altere o .env)
+
+Se modificar variáveis do `.env`, execute:
+
+```bash
+docker exec -it laravel-php php artisan config:clear
+```
+
+---
+
+## Observações
+
+- O arquivo `.env` não deve ser versionado  
+- Utilize senhas fortes em produção  
+- Certifique-se de que as portas necessárias estejam liberadas no servidor  
+- Para HTTPS, recomenda-se configurar SSL com um proxy reverso ou Certbot  
