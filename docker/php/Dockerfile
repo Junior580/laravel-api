@@ -19,3 +19,5 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
 USER www-data
+
+CMD ["/entrypoint.sh"]
