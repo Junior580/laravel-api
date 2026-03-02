@@ -36,6 +36,8 @@ DB_USERNAME=usuario
 DB_PASSWORD=senha-forte
 DB_ROOT_PASSWORD=senha-root-forte
 
+CLOUDFLARE_TUNNEL_TOKEN= # token do cloudflare tunnels
+
 #Subir o Ambiente:
 docker compose down -v
 docker compose up -d --build

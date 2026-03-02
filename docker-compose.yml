@@ -1,4 +1,14 @@
 services:
+    cloudflared:
+        image: cloudflare/cloudflared:latest
+        container_name: cloudflared
+        command: >
+            tunnel --no-autoupdate run
+            --token ${CLOUDFLARE_TUNNEL_TOKEN}
+        networks:
+            - laravel
+        restart: unless-stopped
+
     traefik:
         image: traefik:v3.6.9
         container_name: laravel-traefik
