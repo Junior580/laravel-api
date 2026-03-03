@@ -64,6 +64,8 @@ services:
     php:
         image: ghcr.io/junior580/laravel-php:latest
         container_name: laravel-php
+        env_file:
+            - .env
         networks:
             - laravel
         depends_on:
