@@ -62,9 +62,7 @@ services:
             - "traefik.http.services.laravel.loadbalancer.server.port=80"
 
     php:
-        build:
-            context: .
-            dockerfile: docker/php/Dockerfile
+        image: ghcr.io/junior580/laravel-php:latest
         container_name: laravel-php
         networks:
             - laravel
