@@ -1,16 +1,16 @@
 services:
     watchtower:
-        image: containrrr/watchtower:latest
+        image: nickfedor/watchtower:1.14.2
         container_name: watchtower
         restart: unless-stopped
-        networks:
-            - laravel
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             - WATCHTOWER_SCOPE=php-only
             - WATCHTOWER_CLEANUP=true
             - WATCHTOWER_POLL_INTERVAL=300
+        networks:
+            - laravel
 
     cloudflared:
         image: cloudflare/cloudflared:latest
@@ -62,9 +62,7 @@ services:
             - "traefik.http.services.laravel.loadbalancer.server.port=80"
 
     php:
-        build:
-            context: .
-            dockerfile: docker/php/Dockerfile
+        image: ghcr.io/junior580/laravel-php:latest
         container_name: laravel-php
         networks:
             - laravel
