@@ -4,12 +4,12 @@ Este projeto executa uma aplicação Laravel em ambiente de produção utilizand
 
 ## Stack utilizada
 
-- Laravel  
-- PHP 8.3 (FPM)  
-- Nginx  
-- MySQL 8  
-- Docker  
-- Docker Compose  
+- Laravel
+- PHP 8.3 (FPM)
+- Nginx
+- MySQL 8
+- Docker
+- Docker Compose
 
 ---
 
@@ -17,8 +17,8 @@ Este projeto executa uma aplicação Laravel em ambiente de produção utilizand
 
 Antes de iniciar, certifique-se de que o servidor possui:
 
-- Docker instalado  
-- Docker Compose (plugin `docker compose`)  
+- Docker instalado
+- Docker Compose (plugin `docker compose`)
 
 Verifique com:
 
@@ -71,25 +71,20 @@ DB_PASSWORD=senha-forte
 DB_ROOT_PASSWORD=senha-root-forte
 ```
 
-Importante:  
-O valor de `DB_HOST` deve ser exatamente o nome do serviço MySQL definido no `docker-compose.yml`.
-
----
-
-## Subindo o Ambiente
-
-CLOUDFLARE_TUNNEL_TOKEN= #token do cloudflare tunnels
-
+CLOUDFLARE_TUNNEL_TOKEN= # token do cloudflare tunnels
 APP_DOMAIN=domain_app
 TRAEFIK_DOMAIN=traefik_domain
-
 #Para proteger o dashboard do Traefik com autenticação básica, gere um hash da senha usando o htpasswd
 TRAEFIK_BASIC_AUTH=login:password hash
+
+Importante:  
+O valor de `DB_HOST` deve ser exatamente o nome do serviço MySQL definido no `docker-compose.yml`.
 
 #Subir o Ambiente:
 docker compose down -v
 docker compose up -d --build
-```
+
+````
 
 ---
 
@@ -99,7 +94,7 @@ Após os containers estarem rodando:
 
 ```bash
 docker exec -it laravel-php php artisan migrate --force
-```
+````
 
 ---
 
@@ -115,7 +110,7 @@ docker exec -it laravel-php php artisan config:clear
 
 ## Observações
 
-- O arquivo `.env` não deve ser versionado  
-- Utilize senhas fortes em produção  
-- Certifique-se de que as portas necessárias estejam liberadas no servidor  
-- Para HTTPS, recomenda-se configurar SSL com um proxy reverso ou Certbot  
+- O arquivo `.env` não deve ser versionado
+- Utilize senhas fortes em produção
+- Certifique-se de que as portas necessárias estejam liberadas no servidor
+- Para HTTPS, recomenda-se configurar SSL com um proxy reverso ou Certbot
