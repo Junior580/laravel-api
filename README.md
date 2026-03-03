@@ -69,25 +69,23 @@ DB_DATABASE=laravel
 DB_USERNAME=usuario
 DB_PASSWORD=senha-forte
 DB_ROOT_PASSWORD=senha-root-forte
-```
+
 
 CLOUDFLARE_TUNNEL_TOKEN= # token do cloudflare tunnels
 APP_DOMAIN=domain_app
 TRAEFIK_DOMAIN=traefik_domain
 #Para proteger o dashboard do Traefik com autenticação básica, gere um hash da senha usando o htpasswd
 TRAEFIK_BASIC_AUTH=login:password hash
-
+```
 Importante:  
 O valor de `DB_HOST` deve ser exatamente o nome do serviço MySQL definido no `docker-compose.yml`.
 
-#Subir o Ambiente:
+## Subir o Ambiente:
+```
 docker compose down -v
 docker compose up -d --build
-
-````
-
+```
 ---
-
 ## Executando Migrações
 
 Após os containers estarem rodando:
@@ -99,7 +97,6 @@ docker exec -it laravel-php php artisan migrate --force
 ---
 
 ## Limpar Cache (caso altere o .env)
-
 Se modificar variáveis do `.env`, execute:
 
 ```bash
