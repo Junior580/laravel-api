@@ -78,9 +78,15 @@ O valor de `DB_HOST` deve ser exatamente o nome do serviço MySQL definido no `d
 
 ## Subindo o Ambiente
 
-Para iniciar os containers:
+CLOUDFLARE_TUNNEL_TOKEN= #token do cloudflare tunnels
 
-```bash
+APP_DOMAIN=domain_app
+TRAEFIK_DOMAIN=traefik_domain
+
+#Para proteger o dashboard do Traefik com autenticação básica, gere um hash da senha usando o htpasswd
+TRAEFIK_BASIC_AUTH=login:password hash
+
+#Subir o Ambiente:
 docker compose down -v
 docker compose up -d --build
 ```
