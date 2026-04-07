@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreated;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 
@@ -33,8 +34,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create($request->validated());
-
+        $user = User::create($request->validated());
+        UserCreated::dispatch($user);
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
