@@ -8,6 +8,9 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class SendEmailNotification implements ShouldQueue
 {
+    use InteractsWithQueue;
+    public int $tries = 3;
+
     /**
      * Create the event listener.
      */
