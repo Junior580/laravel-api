@@ -19,14 +19,14 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('users');
-        }
-
-        return back()->withErrors([
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors([
                 'email' => 'Invalid credentitals'
             ])->onlyInput();
+        }
+
+        $request->session()->regenerate();
+        return redirect()->intended('users');
     }
 
     public function logout(Request $request)
