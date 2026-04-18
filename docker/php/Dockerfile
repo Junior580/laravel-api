@@ -1,4 +1,10 @@
-FROM composer:2.7 AS vendor
+FROM php:8.4-cli AS vendor
+
+RUN apt-get update && apt-get install -y \
+    git unzip zip \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
@@ -14,12 +20,13 @@ COPY . .
 
 RUN composer dump-autoload --optimize
 
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
-    && docker-php-ext-install pdo pdo_mysql zip \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
