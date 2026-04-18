@@ -2,8 +2,6 @@ services:
     pg:
         image: postgres:16.6-alpine3.20
         container_name: postgres_laravel
-        ports:
-            - "5432:5432"
         environment:
             - POSTGRES_USER=docker
             - POSTGRES_PASSWORD=4892ae0405ce4bff9d84cb65200788d4
@@ -12,9 +10,26 @@ services:
             - postgres_data:/var/lib/postgresql/data
         networks:
             - laravel
-
+    pgbouncer:
+        image: edoburu/pgbouncer:v1.25.1-p0
+        container_name: pgbouncer
+        depends_on:
+            - pg
+        ports:
+            - "5432:5432"
+        environment:
+            - DB_USER=docker
+            - DB_PASSWORD=4892ae0405ce4bff9d84cb65200788d4
+            - DB_HOST=pg
+            - DB_NAME=app-laravel
+            - POOL_MODE=transaction
+            - MAX_CLIENT_CONN=100
+            - DEFAULT_POOL_SIZE=20
+            - AUTH_TYPE=scram-sha-256
+        networks:
+            - laravel
 volumes:
     postgres_data:
-
 networks:
     laravel:
+
