@@ -4,3 +4,5 @@
 node_modules
 vendor
 storage/logs
+tests/
+.php-cs-fixer.cache
